@@ -1,27 +1,20 @@
-# from flask import Flask
-# from flask_restful import Resource, Api
-
-# app = Flask(__name__)
-# api = Api(app)
-
-# class Main(Resource):
-#     def get(self):
-#         return {'message': 'success'}, 200
-
-# api.add_resource(Main, '/')
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
-
+from flask import Flask
+from flask_restful import Resource, Api
 import json
 import time
 import threading
 from datetime import datetime
 from websocket import create_connection
 
-class CandleSticker(threading.Thread):
+app = Flask(__name__)
+api = Api(app)
 
-    def __init__(self, minutes, **kwargs):
+class CandleSticker(threading.Thread, Resource):
+
+    global teste
+    teste = []
+
+    def __init__(self, minutes=None, **kwargs):
         super(CandleSticker, self).__init__(**kwargs)
         self.minutes = minutes
 
@@ -36,7 +29,18 @@ class CandleSticker(threading.Thread):
             min_value = min(converted_criptos)
             date_hour = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
 
-            print(f'{self.minutes} minuto(s) - abertura: {open_value}, fechamento: {close_value}, maxima: {max_value}, minimo: {min_value}, data-hora: {date_hour}')
+            teste.append({
+                'open_value': converted_criptos[0],
+                'close_value': converted_criptos[-1],
+                'max_value': max(converted_criptos),
+                'min_value': min(converted_criptos),
+                'periodicity': self.minutes,
+                'date_hour': datetime.today().strftime("%Y-%m-%d %H:%M:%S")
+            })
+
+            
+
+            # print(f'{self.minutes} minuto(s) - abertura: {open_value}, fechamento: {close_value}, maxima: {max_value}, minimo: {min_value}, data-hora: {date_hour}')
 
     def listen_forever(self):
         try:
@@ -59,9 +63,28 @@ class CandleSticker(threading.Thread):
         except Exception as ex:
             print(f'exception: {ex}')
 
-try:
-    CandleSticker(1).start()
-    CandleSticker(5).start()
-    CandleSticker(10).start()
-except Exception as e:
-    print(f'Exception occured: {e}')
+    @classmethod
+    def get(cls):
+        cls(1).start()
+        cls(5).start()
+        cls(10).start()
+        return {'message': 'Iniciando criação de candlestickers'}, 200
+
+    def post(self):
+        return {'message': teste}, 200
+
+
+api.add_resource(CandleSticker, '/candle-sticke')
+# api.add_resource(CandleSticker.post(), '/candle-stick')
+
+if __name__ == '__main__':
+    app.run(debug=True, threaded=True)
+
+
+
+# try:
+#     CandleSticker(1).start()
+#     CandleSticker(5).start()
+#     CandleSticker(10).start()
+# except Exception as e:
+#     print(f'Exception occured: {e}')

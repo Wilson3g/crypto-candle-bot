@@ -17,23 +17,26 @@ import json
 import time
 from websocket import create_connection
 
-class Subscriber:
-    def sum_values(self):
-        prices = self.listen_forever()
+class CandleSticker:
+    def create_clandle_stick(self, minutes):
+        prices = self.listen_forever(minutes=minutes)
         converted_criptos = [float(i) for i in prices]
-        print(converted_criptos)
-        open_close = converted_criptos[::len(converted_criptos)-1]
-        high_value = max(converted_criptos)
-        lower_value = min(converted_criptos)
-        print(f'abertura: {converted_criptos} fechamento: {converted_criptos} minimo: {lower_value} maximo: {high_value}')
 
-    def listen_forever(self):
+        open_value = converted_criptos[0]
+        close_value = converted_criptos[-1]
+        max_value = max(converted_criptos)
+        min_value = min(converted_criptos)
+
+        print(f'{minutes} minuto(s) - abertura: {open_value}, fechamento: {close_value}, maxima: {max_value}, minimo: {min_value}')
+
+
+    def listen_forever(self, minutes):
         try:
             ws = create_connection('wss://api2.poloniex.com')
             ws.send('{"command": "subscribe", "channel": "USDT_BTC"}')
             
             price = []
-            t_end = time.time() + 10
+            t_end = time.time() + 60 * minutes
             while time.time() < t_end:
                 result = ws.recv()
                 result = json.loads(result)
@@ -49,6 +52,10 @@ class Subscriber:
 
 
 try:
-    Subscriber().sum_values()
+    cancle_sticker = CandleSticker()
+    while True:
+        cancle_sticker.create_clandle_stick(1)
+        cancle_sticker.create_clandle_stick(2)
+        cancle_sticker.create_clandle_stick(3)
 except Exception as e:
     print(f'Exception occured: {e}')

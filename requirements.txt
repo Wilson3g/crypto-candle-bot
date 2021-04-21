@@ -1,6 +1,8 @@
 alembic==1.5.8
 aniso8601==9.0.1
+cffi==1.14.5
 click==7.1.2
+cryptography==3.4.7
 Flask==1.1.2
 flask-marshmallow==0.14.0
 Flask-Migrate==2.7.0
@@ -18,6 +20,7 @@ MarkupSafe==1.1.1
 marshmallow==3.11.1
 marshmallow-sqlalchemy==0.24.2
 mysqldbModel==1.1.0
+pycparser==2.20
 PyMySQL==1.0.2
 python-dateutil==2.8.1
 python-editor==1.0.4

@@ -1,0 +1,39 @@
+version: "3"
+services:
+  app:
+    build: .
+    links:
+        - db
+    ports:
+        - "5000:5000"
+    networks:
+        - my_network
+    depends_on:
+        - db
+    links: 
+        - db
+    restart: on-failure
+    environment:
+        WAIT_HOSTS: db:3606
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+        MYSQL_DATABASE: 'smarttbot_db'
+        MYSQL_USER: 'smart'
+        MYSQL_PASSWORD: 'root'
+        MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+        - '30000:3306'
+    expose:
+        - '3306'
+    volumes:
+        - my-db:/var/lib/mysql
+    networks:
+        - my_network
+volumes:
+    my-db:
+networks:
+    my_network:
+        driver: bridge
+        external: false

@@ -1,6 +1,6 @@
 from flask_marshmallow import Marshmallow
-from app.models.candle_sticker import CandleStickerModel
-from app.extensions.marshmallow import marshmallow as ma
+from models.candle_sticker import CandleStickerModel
+from extensions.marshmallow import marshmallow as ma
 
 
 

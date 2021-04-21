@@ -1,5 +1,5 @@
 from flask_restful import Api
-from app.bussines.candle_sticker import CandleStickerBussines
+from bussines.candle_sticker import CandleStickerBussines
 
 api = Api()
 

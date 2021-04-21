@@ -1,5 +1,5 @@
-from app.models.candle_sticker import CandleStickerModel
-from app.schema.candle_sticker import CandleStickerSchema
+from models.candle_sticker import CandleStickerModel
+from schema.candle_sticker import CandleStickerSchema
 from flask_restful import Resource
 from websocket import create_connection
 from datetime import datetime
@@ -15,9 +15,10 @@ class CandleStickerBussines(threading.Thread, Resource):
     def __init__(self, minutes=None, **kwargs):
         super(CandleStickerBussines, self).__init__(**kwargs)
         self.minutes = minutes
+        self._running = True
 
     def run(self):
-        while True:
+        while self._running:
             prices = self.listen_forever()
             converted_criptos = [float(i) for i in prices]
         
@@ -31,6 +32,12 @@ class CandleStickerBussines(threading.Thread, Resource):
             }
             CandleStickerModel.insert_candle_sticker(candle)
             print(f'Captura de {self.minutes} minuto(s) realizada')
+
+            if self._running == False:
+                return
+
+    def stop(self):
+        self._running = False
 
     def listen_forever(self):
         try:

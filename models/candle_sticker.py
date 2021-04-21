@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from app.extensions.sql_alchemy import db
+from extensions.sql_alchemy import db
 
 
 class CandleStickerModel(db.Model):

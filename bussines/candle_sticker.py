@@ -60,12 +60,12 @@ class CandleStickerBussines(threading.Thread, Resource):
         except Exception as ex:
             print(f'exception: {ex}')
 
-    def get(self):
+    def post(self):
         self.__class__(1).start()
         self.__class__(5).start()
         self.__class__(10).start()
         return {'message': 'Iniciando criação de candlestickers'}, 200
 
-    def post(self):
-        result = CandleStickerModel.query.filter_by(periodicity=1).all()
+    def get(self):
+        result = CandleStickerModel.query.order_by(CandleStickerModel.id.desc()).all()
         return candle_schema.dump(result, many=True), 200

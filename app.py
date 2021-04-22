@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_script import Manager, Server
 
-from extensions import migrate
 from extensions import marshmallow
 from bussines import routes as config_bus
 from extensions.sql_alchemy import db, init_app
@@ -12,7 +11,6 @@ def create_app(config_file='settings.py'):
 
     init_app(my_app)
     marshmallow.ini_app(my_app)
-    migrate.init_app(my_app, db)
     config_bus.init_app(my_app)
 
     db.app = my_app

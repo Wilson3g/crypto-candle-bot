@@ -3,7 +3,6 @@ from models.candle_sticker import CandleStickerModel
 from extensions.marshmallow import marshmallow as ma
 
 
-
 class CandleStickerSchema(ma.SQLAlchemyAutoSchema):
 
     class Meta:

@@ -36,7 +36,7 @@ Não sabe o que é um candlesticker? <a href="https://pt.wikipedia.org/wiki/Cand
 
 2) Montagem dos containers Docker<br>
 - ```$ docker-compose up```<br>
-######OBS: Fique ciente que a instalação do projeto com Docker pode levar vários minutos para ser finalizada!
+<b>OBS: Fique ciente que a instalação do projeto com Docker pode levar vários minutos para ser finalizada!</b>
 
 
 ## Endpoints da aplicação
@@ -79,22 +79,22 @@ Acabei descobrindo que a solução se encontrava em uma técnica popularmente ch
 
 Entre os vários pontos a melhorar no desenvolvimento, posso listar alguns que particulamente me deixaram incomodado.
 
-1) <b>Organização do projeto</b>
+1) <b>Organização do projeto:</b>
 Como não tenho conhecimento em design patterns ainda, tive que procurar formas de organizar o código e a estrutura de pastas. Creio que se fossem aplicadas técnicas de designer pattern, o projeto ficaria mais organizado.
 
-2) <b>Endpoint usado apenas para startar o servidor</b>
+2) <b>Endpoint usado apenas para startar o servidor:</b>
 Me desagradou o fato de disponibilizar um endpoint só para iniciar a criação dos candles. Acho que o ideal seria iniciar a criação dos candles assim que o servidor fosse iniciado.
 
-3) <b>Disponibilizar mais de uma cripto moeda</b>
+3) <b>Disponibilizar mais de uma cripto moeda:</b>
 Atualmente os candles estão sendo montados usando o bitcoin, seria bom se ouvesse ao menos a montagem de candle das 5 principais cripto moedas do mercado.
 
-4) <b>Socket para exibir os candles em tempo real</b>
+4) <b>Socket para exibir os candles em tempo real:</b>
 Acredito que seja uma ótima ideia retornar a criação dos candles em tempo real para o usuário
 
-5) <b>Otimizar a montagem dos containers</b>
+5) <b>Otimizar a montagem dos containers:</b>
 Creio que a solução que encontrei para a montagem "sincrôna" dos containers não tenha sido a melhor em questão de performance. Vale a pena tentar criar um script próprio para otimizar o processamento.
 
-5) <b>Aplicar testes</b>
+5) <b>Aplicar testes:</b>
 Como não tenho conhecimento com TDD, não sabia o que testar quando montei a implementação. Acabei testando apenas a criação do candle e a url que lista os mesmos. Uma correção a ser feita seria implementar testes em todas as partes possíveis do sistema.
 
 ## Aprendizado

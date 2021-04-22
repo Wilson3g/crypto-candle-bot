@@ -24,7 +24,10 @@ Não sabe o que é um candlesticker? <a href="https://pt.wikipedia.org/wiki/Cand
 - ```$ python3 -m venv nome_da_sua_env```<br>
 - ```$ . nome_da_sua_env/bin/activate```<br>
 
-3) Inicie o servidor Flask
+3) Instale as dependências
+- ```$ pip install -r requirements.txt```<br>
+
+4) Inicie o servidor Flask
 - ```$ flask run```<br>
 
 ## Instalação com Docker
